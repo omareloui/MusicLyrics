@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "start:cmus": "node dist/lib/cmus-api.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:init": "prisma init --datasource-provider sqlite",
     "db:migrate:dev": "prisma migrate dev --name",
