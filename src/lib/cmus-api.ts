@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
+import { red } from "colors";
 import { LyricsController } from "../controllers/lyrics.controller";
 
 const lyricsController = new LyricsController();
@@ -21,10 +22,14 @@ sed.stdout.on("data", data => {
 sed.on("exit", async () => {
   finalData = finalData.trim();
   const [artist, album, title] = finalData.split("\n");
-  const lyrics = await lyricsController.getByArtistAndTite({
-    artist,
-    album,
-    title,
-  });
-  console.log(lyrics);
+  try {
+    const lyrics = await lyricsController.getByArtistAndTite({
+      artist,
+      album,
+      title,
+    });
+    console.log(lyrics);
+  } catch (e) {
+    console.log(`${red("Error:")} Can't find the song lyrics!`);
+  }
 });
